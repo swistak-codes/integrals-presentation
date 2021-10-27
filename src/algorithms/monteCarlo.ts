@@ -11,7 +11,7 @@ export function* monteCarlo(
   // obliczamy pole prostokąta, w którym strzelamy
   const rectArea = (endX - startX) * rectY;
 
-  // zmienne w których przechowamy ile prób wykonaliśmy i ile razy trafiliśmy
+  // zmienne, w których przechowamy ile prób wykonaliśmy i ile razy trafiliśmy
   let allShots = 0;
   let onTarget = 0;
 

@@ -5,6 +5,8 @@ export enum AlgorithmMode {
   Start,
   Middle,
   End,
+  Minimum,
+  Maximum,
 }
 
 export const rectangles = (
@@ -14,7 +16,7 @@ export const rectangles = (
   startX: number,
   endX: number,
 ) => {
-  // zmienne w których przechowamy odmierzone prostokąty i pole
+  // zmienne, w których przechowamy odmierzone prostokąty i pole
   const rectangles: Figure[] = [];
   let area = 0;
 
@@ -35,6 +37,12 @@ export const rectangles = (
         break;
       case AlgorithmMode.End:
         point = x2;
+        break;
+      case AlgorithmMode.Minimum:
+        point = Math.min(x1, x2);
+        break;
+      case AlgorithmMode.Maximum:
+        point = Math.max(x1, x2);
         break;
     }
 
