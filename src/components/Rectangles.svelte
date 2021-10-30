@@ -28,5 +28,5 @@
 <Canvas />
 {#if area != null && realArea != null}
   <p>Wynik: {Intl.NumberFormat().format(area)}</p>
-  <p>Wynik z wzoru: {Intl.NumberFormat().format(realArea)}</p>
+  <p>Wynik ze wzoru: {Intl.NumberFormat().format(realArea)}</p>
 {/if}

@@ -86,7 +86,7 @@
   <p>Wynik: {Intl.NumberFormat().format(area)}</p>
 {/if}
 {#if realArea != null}
-  <p>Wynik z wzoru: {Intl.NumberFormat().format(realArea)}</p>
+  <p>Wynik ze wzoru: {Intl.NumberFormat().format(realArea)}</p>
 {/if}
 <Container>
   <Button disabled="{isAnimating || !iterator}" on:click="{goToNext}"
