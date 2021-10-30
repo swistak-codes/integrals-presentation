@@ -1,15 +1,31 @@
 <script lang="ts">
   import Container from './shared/Container.svelte';
   import ContainerItem from './shared/ContainerItem.svelte';
-  import { func, start, end, height, divisions, radius } from '../stores';
+  import { func, start, end, height, divisions, radius, mode } from '../stores';
   import { resetStores } from '../helpers/resetStores';
   import { Functions } from '../helpers/functionsEnum';
+  import { Modes } from '../helpers/getMode';
+  import { AlgorithmMode } from '../algorithms/rectangles';
 
   func.subscribe((value) => {
     resetStores(value);
   });
 
-  export let isMonteCarlo: boolean = false;
+  let min: number;
+  let max: number;
+
+  $: min = $func === Functions.circle ? -$radius : -5;
+  $: max = $func === Functions.circle ? $radius : 5;
+
+  radius.subscribe((value) => {
+    if ($func !== Functions.circle) {
+      return;
+    }
+    $start = Math.max(-value, $start);
+    $end = Math.min(value, $end);
+  });
+
+  export let algorithm: Modes;
 </script>
 
 <Container>
@@ -26,8 +42,8 @@
     <input
       id="start"
       type="number"
-      min="-5"
-      max="5"
+      min="{min}"
+      max="{max}"
       step="0.01"
       bind:value="{$start}"
     />
@@ -37,13 +53,25 @@
     <input
       id="end"
       type="number"
-      min="-5"
-      max="5"
+      min="{min}"
+      max="{max}"
       step="0.01"
       bind:value="{$end}"
     />
   </ContainerItem>
-  {#if isMonteCarlo}
+  {#if algorithm === Modes.Rectangles}
+    <ContainerItem>
+      <label for="mode">Punkt</label>
+      <select id="mode" bind:value="{$mode}">
+        <option value="{AlgorithmMode.Start}">Początek</option>
+        <option value="{AlgorithmMode.End}">Koniec</option>
+        <option value="{AlgorithmMode.Middle}">Środek</option>
+        <option value="{AlgorithmMode.Minimum}">Minimum</option>
+        <option value="{AlgorithmMode.Maximum}">Maksimum</option>
+      </select>
+    </ContainerItem>
+  {/if}
+  {#if algorithm === Modes.MonteCarlo}
     <ContainerItem>
       <label for="height">Wysokość</label>
       <input

@@ -8,6 +8,7 @@ export type Figure = {
 };
 
 export type FigureToDraw = Figure & {
+  y3: number;
   strokeColor: string;
   fillColor: string;
 };

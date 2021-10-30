@@ -23,8 +23,8 @@ export const rectangles = (
   // liczymy tyle razy, ile mamy punktów podziału
   for (let i = 0; i < divisions; i++) {
     // obliczamy początek i koniec przedziału
-    const x1 = (i / divisions) * endX + startX;
-    const x2 = ((i + 1) / divisions) * endX + startX;
+    const x1 = startX + (i / divisions) * (endX - startX);
+    const x2 = startX + ((i + 1) / divisions) * (endX - startX);
 
     // wyznaczamy punkt względem którego obliczymy pole wycinka figury
     let point = 0;

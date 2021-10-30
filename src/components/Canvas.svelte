@@ -5,6 +5,7 @@
   import { drawAxis } from '../helpers/canvas/drawAxis';
   import { drawGrid } from '../helpers/canvas/drawGrid';
   import { drawFunction } from '../helpers/canvas/drawFunction';
+  import { drawFigure } from '../helpers/canvas/drawFigure';
 
   let canvas: HTMLCanvasElement;
   const size = 500;
@@ -18,8 +19,9 @@
     const context = canvas.getContext('2d');
     clear(context, size);
     drawGrid(context, size);
-    drawAxis(context, size);
+    $toDraw.forEach((figure) => drawFigure(context, size, figure));
     drawFunction(context, size, $func);
+    drawAxis(context, size);
   };
 </script>
 

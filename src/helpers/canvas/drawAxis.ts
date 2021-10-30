@@ -1,4 +1,4 @@
-import { getPosition } from './getPosition';
+import { getCanvasPosition } from './getPosition';
 
 export const drawAxis = (context: CanvasRenderingContext2D, size: number) => {
   const center = Math.floor(size / 2);
@@ -23,9 +23,11 @@ const drawVerticalAxis = (
   context.lineTo(center - 5, 10);
   context.moveTo(center, 0);
   context.lineTo(center + 5, 10);
+  context.closePath();
   context.stroke();
 
   context.font = '14px sans-serif';
+  context.fillStyle = 'black';
   context.fillText('y', center - 20, 10);
 };
 
@@ -43,15 +45,17 @@ const drawHorizontalAxis = (
   context.lineTo(size - 10, center - 5);
   context.moveTo(size, center);
   context.lineTo(size - 10, center + 5);
+  context.closePath();
   context.stroke();
 
   context.font = '14px sans-serif';
+  context.fillStyle = 'black';
   context.fillText('x', size - 10, center + 20);
 };
 
 const drawVerticalScale = (context: CanvasRenderingContext2D, size: number) => {
   for (let i = -5.5; i < 6; i += 0.5) {
-    const { x, y } = getPosition(0, i, size);
+    const { x, y } = getCanvasPosition(0, i, size);
     const isInt = Number.isInteger(i);
     const length = isInt ? 9 : 7;
 
@@ -61,10 +65,12 @@ const drawVerticalScale = (context: CanvasRenderingContext2D, size: number) => {
     context.strokeStyle = 'black';
     context.moveTo(x - length, y);
     context.lineTo(x + length, y);
+    context.closePath();
     context.stroke();
 
     if (isInt && i !== 0) {
       context.font = '14px sans-serif';
+      context.fillStyle = 'black';
       context.fillText('' + i, x + 14, y + 4);
     }
   }
@@ -75,7 +81,7 @@ const drawHorizontalScale = (
   size: number,
 ) => {
   for (let i = -5.5; i < 6; i += 0.5) {
-    const { x, y } = getPosition(i, 0, size);
+    const { x, y } = getCanvasPosition(i, 0, size);
     const isInt = Number.isInteger(i);
     const length = isInt ? 9 : 7;
 
@@ -85,10 +91,12 @@ const drawHorizontalScale = (
     context.strokeStyle = 'black';
     context.moveTo(x, y - length);
     context.lineTo(x, y + length);
+    context.closePath();
     context.stroke();
 
     if (isInt && i !== 0) {
       context.font = '14px sans-serif';
+      context.fillStyle = 'black';
       context.fillText('' + i, x - 4, y + 24);
     }
   }
